@@ -5,7 +5,7 @@
 ![Seaborn](https://img.shields.io/badge/Seaborn-Statistical-4c1c24?style=for-the-badge)
 ![Status](https://img.shields.io/badge/Status-In_Development-orange?style=for-the-badge)
 
-Un pipeline completo de ingeniería y análisis de datos utilizando el conjunto de datos relacionales de la NBA (Kaggle). Este proyecto abarca desde la ingesta de archivos crudos conectados vía API/GitHub, pasando por una limpieza radical y cruce relacional de tablas, hasta la visualización ejecutiva de métricas de rendimiento.
+ análisis de datos utilizando el conjunto de datos relacionales de la NBA (Kaggle). Este proyecto abarca desde la ingesta de archivos crudos conectados vía API/GitHub, pasando por una limpieza radical y cruce relacional de tablas, hasta la visualización ejecutiva de métricas de rendimiento.
 
 ---
 
