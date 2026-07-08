@@ -101,8 +101,3 @@ def limpiar_datos():
 
     return df_games, df_teams, df_players, df_ranking
 
-if __name__ == "__main__":
-    df_games, df_teams, df_players, df_ranking = limpiar_datos()
-    print("Muestra del Ranking Limpio:")
-    print(df_ranking.head())
-    print(f"\nEstructura final de juegos: {df_games.shape}")
