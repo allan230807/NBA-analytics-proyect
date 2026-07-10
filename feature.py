@@ -33,29 +33,18 @@ def preparar_datos_definitivo(df_games, df_ranking):
     if 'TEAM' in df_ranking.columns and 'TEAM_ABR' not in df_ranking.columns:
         df_ranking = df_ranking.rename(columns={'TEAM': 'TEAM_ABR'})
         
-    df_ranking['TEAM_BR'] = df_ranking['TEAM_ABR'].astype(str)
+    df_ranking['TEAM_ABR'] = df_ranking['TEAM_ABR'].astype(str)
     df_ranking['RANK'] = df_ranking.groupby('SEASON_ID')['W_PCT'].rank(ascending=False)
     
-    df_ref = df_ranking[['SEASON_ID', 'TEAM_ABR', 'RANK']].copy()
-    df_ref['SEASON'] = (df_ref['SEASON_ID'] % 10000) + 1
-    # --- CORRECCIÓN DEL RANKING ---
-    # Si viene crudo, 'TEAM' es la columna con la abreviación del equipo
-    if 'TEAM' in df_ranking.columns and 'TEAM_ABR' not in df_ranking.columns:
-        df_ranking = df_ranking.rename(columns={'TEAM': 'TEAM_ABR'})
-        
-    df_ranking['RANK'] = df_ranking.groupby('SEASON_ID')['W_PCT'].rank(ascending=False)
-    df_ref = df_ranking[['SEASON_ID', 'TEAM_ABR', 'RANK']].copy()
-    # ------------------------------
-    
+    # Reducimos a un solo registro por equipo/temporada usando la última fecha disponible
+    df_ref = df_ranking.groupby(['SEASON_ID', 'TEAM_ABR']).last().reset_index()
+    df_ref = df_ref[['SEASON_ID', 'TEAM_ABR', 'RANK']].copy()
     df_ref['SEASON'] = (df_ref['SEASON_ID'] % 10000) + 1
         
-    # 3. Orden cronológico para la simulación de fuerza
+    # 4. Orden cronológico para la simulación de fuerza
     df_games = df_games.sort_values('GAME_DATE_EST').reset_index(drop=True)
-    # 2. Ponderaciones base
-    df_ranking['RANK'] = df_ranking.groupby('SEASON_ID')['W_PCT'].rank(ascending=False)
-    df_ref = df_ranking[['SEASON_ID', 'TEAM_ABR', 'RANK']].copy()
-    df_ref['SEASON'] = (df_ref['SEASON_ID'] % 10000) + 1
     
+    # Cruce seguro (Merge 1 a 1 por equipo por temporada)
     df_games = pd.merge(df_games, df_ref.rename(columns={'TEAM_ABR': 'TEAM_ABR_away', 'RANK': 'RANK_away'}), 
                         on=['SEASON', 'TEAM_ABR_away'], how='left')
     
@@ -109,4 +98,7 @@ def preparar_datos_definitivo(df_games, df_ranking):
     # Target
     df_games['TARGET'] = (df_games['PTS_home'] > df_games['PTS_away']).astype(int)
     
-    return df_games[['FUERZA_LOCAL', 'FUERZA_VISITANTE', 'H2H_FACTOR']], df_games['TARGET']
+    # NUEVO: Convertimos el diccionario de las fuerzas finales en un DataFrame
+    df_fuerzas_finales = pd.DataFrame(list(fuerza_actual.items()), columns=['TEAM', 'FUERZA'])
+    
+    return df_games[['FUERZA_LOCAL', 'FUERZA_VISITANTE', 'H2H_FACTOR']], df_games['TARGET'], df_fuerzas_finales
