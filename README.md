@@ -1,27 +1,38 @@
-# 🏀 NBA End-to-End Analytics Pipeline
 
-![Python](https://img.shields.io/badge/Python-3.10+-blue?style=for-the-badge&logo=python&logoColor=white)
-![Pandas](https://img.shields.io/badge/Pandas-2.0+-150458?style=for-the-badge&logo=pandas&logoColor=white)
-![Seaborn](https://img.shields.io/badge/Seaborn-Statistical-4c1c24?style=for-the-badge)
-![Status](https://img.shields.io/badge/Status-In_Development-orange?style=for-the-badge)
+# 🏀 NBA Predictive Analytics & Live Consultant
 
- análisis de datos utilizando el conjunto de datos relacionales de la NBA (Kaggle). Este proyecto abarca desde la ingesta de archivos crudos conectados vía API/GitHub, pasando por una limpieza radical y cruce relacional de tablas, hasta la visualización ejecutiva de métricas de rendimiento.
+<div align="center">
+  <a href="https://nba-analytics-proyect-998y4j5icgddxcvxjdziwc.streamlit.app/">
+    <img src="https://img.shields.io/badge/Status-Live_en_Streamlit-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white" alt="Streamlit App">
+  </a>
+  <br>
+  <img src="https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white" alt="Python">
+  <img src="https://img.shields.io/badge/Pandas-150458?style=flat-square&logo=pandas&logoColor=white" alt="Pandas">
+  <img src="https://img.shields.io/badge/NumPy-013243?style=flat-square&logo=numpy&logoColor=white" alt="NumPy">
+  <img src="https://img.shields.io/badge/Machine%20Learning-Sigmoid_Model-black?style=flat-square" alt="ML">
+</div>
+
+<br>
+
+> Un modelo predictivo y dashboard interactivo diseñado para estimar probabilidades de victoria en partidos de la NBA mediante la ponderación matemática de la fuerza viva (EWMA), fatiga acumulada y el dominio histórico cara a cara (H2H).
+
+### 🚀 **[Prueba el Consultor Interactivo Aquí](https://nba-analytics-proyect-998y4j5icgddxcvxjdziwc.streamlit.app/)**
 
 ---
 
-## 🗺️ Flujo de Arquitectura de Datos
+## 📌 Visión General del Proyecto
+
+Este proyecto procesa datos históricos de la NBA (temporadas 2018-2019 a 2021-2022) para alimentar un modelo probabilístico. En lugar de depender de estadísticas estáticas, el algoritmo evalúa el momento dinámico de los equipos, ajustando su "Fuerza Viva" a través de multiplicadores de fatiga (días de descanso) y un decaimiento exponencial de enfrentamientos directos previos.
+
+### ⚙️ Características Principales
+
+* **Motor de Predicción Dinámico:** Implementación de cálculo de Fuerza Ajustada combinando promedios móviles exponenciales (EWMA).
+* **Ajuste de Fatiga y Localía:** Modificadores matemáticos basados en el calendario de viajes y días de descanso entre partidos.
+* **Auditoría de Resultados (Backtesting en Vivo):** El dashboard permite comparar la predicción exacta del modelo contra el resultado real que ocurrió en la pista.
+* **Interfaz Interactiva:** Desplegado en Streamlit, ofreciendo una experiencia fluida sin necesidad de ejecutar código localmente.
+
+---
 
 
-
-```text
-[ Data Cruda: Kaggle CSVs ] 
-            ⬇
- [ Auditoría Inicial: .info() & .isna() ] 
-            ⬇
-  [ Pipeline de Limpieza Radical (Pandas) ]  <-- Remoción de duplicados por claves, tipado e histogramas
-            ⬇
-   [ Cruce Relacional: pd.merge() ]         <-- Conexión de IDs de Juegos, Jugadores y Equipos
-            ⬇
-    [ Agregación Avanzada: .groupby() ]
-            ⬇
-     [ Dashboard Exec: Seaborn Charts ]
+   git clone [https://github.com/tu-usuario/NBA-analytics-proyect.git](https://github.com/tu-usuario/NBA-analytics-proyect.git)
+   cd NBA-analytics-proyect
